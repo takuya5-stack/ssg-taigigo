@@ -16,6 +16,7 @@
     --line:#e3e7f0; --accent:#3b5bdb; --accent-soft:#edf1ff;
     --ok:#1f9d55; --ok-soft:#e6f7ee; --ng:#d92d4b; --ng-soft:#fdecef;
     --warn:#e8a33d; --shadow:0 2px 14px rgba(29,35,51,.07);
+    --mincho:"Hiragino Mincho ProN","Yu Mincho",serif;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{
@@ -59,23 +60,24 @@
   .qbox{text-align:center;padding:14px 8px 4px}
   .qtag{display:inline-block;font-size:.72rem;color:var(--accent);background:var(--accent-soft);
         padding:3px 10px;border-radius:99px;margin-bottom:12px}
-  .qword{font-size:2.5rem;font-weight:700;letter-spacing:.18em;margin:0;
-         font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  .qword{font-size:2.5rem;font-weight:700;letter-spacing:.18em;margin:0;font-family:var(--mincho)}
   .qword.kana{font-size:2rem;letter-spacing:.14em;font-family:inherit}
-  .qask{font-size:.88rem;color:var(--sub);margin:8px 0 2px}
-  .choices{display:grid;gap:9px;margin-top:18px}
+  .qyomi{font-size:.8rem;color:var(--sub);letter-spacing:.14em;margin:4px 0 0;min-height:1.2em}
+  .qask{font-size:.88rem;color:var(--sub);margin:6px 0 2px}
+  .choices{display:grid;gap:9px;margin-top:16px}
   .choices button{
-    display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;
+    display:flex;align-items:center;gap:12px;width:100%;padding:11px 14px;
     border:1.5px solid var(--line);background:#fff;border-radius:11px;cursor:pointer;
-    font-size:1.25rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
-    letter-spacing:.12em;text-align:left;color:var(--ink);transition:.12s;
+    text-align:left;color:var(--ink);transition:.12s;font-family:inherit;
   }
   .choices button:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
   .choices button .num{
     flex:0 0 22px;height:22px;border-radius:5px;background:var(--line);color:var(--sub);
-    font-size:.72rem;font-family:sans-serif;display:flex;align-items:center;justify-content:center;
-    letter-spacing:0;
+    font-size:.72rem;display:flex;align-items:center;justify-content:center;
   }
+  .ctxt{display:flex;flex-direction:column;line-height:1.3}
+  .ctxt .cj{font-size:1.25rem;letter-spacing:.12em;font-family:var(--mincho)}
+  .ctxt .cy{font-size:.7rem;color:var(--sub);letter-spacing:.08em}
   .choices button:disabled{cursor:default}
   .choices button.correct{border-color:var(--ok);background:var(--ok-soft)}
   .choices button.wrong{border-color:var(--ng);background:var(--ng-soft)}
@@ -84,8 +86,8 @@
   .judge.show{display:block}
   .judge.o{background:var(--ok-soft);color:#14663a}
   .judge.x{background:var(--ng-soft);color:#9c1730}
-  .judge b{font-size:1.15rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;letter-spacing:.1em}
-  .judge .hint{display:block;font-size:.78rem;opacity:.85;margin-top:3px}
+  .judge b{font-size:1.15rem;font-family:var(--mincho);letter-spacing:.1em}
+  .judge .hint{display:block;font-size:.78rem;opacity:.85;margin-top:3px;letter-spacing:.06em}
 
   /* ---- result ---- */
   .score{text-align:center;padding:6px 0 10px}
@@ -93,28 +95,32 @@
   .score .n small{font-size:1.1rem;color:var(--sub);font-weight:400}
   .score .msg{font-size:.9rem;color:var(--sub)}
   .rlist{margin-top:6px;border-top:1px solid var(--line)}
-  .rrow{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:.95rem}
+  .rrow{display:flex;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:.95rem}
   .rrow .mk{flex:0 0 22px;text-align:center;font-weight:700}
   .rrow .mk.o{color:var(--ok)} .rrow .mk.x{color:var(--ng)}
-  .rrow .w{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;letter-spacing:.08em}
-  .rrow .ar{color:var(--sub);font-size:.8rem}
+  .pair{display:flex;align-items:center;gap:8px}
+  .pair .u{display:flex;flex-direction:column;line-height:1.25}
+  .pair .u .cj{font-family:var(--mincho);letter-spacing:.08em}
+  .pair .u .cy{font-size:.65rem;color:var(--sub);letter-spacing:.05em}
+  .pair .ar{color:var(--sub);font-size:.8rem}
   .rrow .ng-count{margin-left:auto;font-size:.72rem;color:var(--warn);font-weight:700}
 
   /* ---- list ---- */
-  .lgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
-  .litem{display:flex;align-items:center;gap:7px;padding:8px 9px;border:1px solid var(--line);
-         border-radius:9px;font-size:.95rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
-         letter-spacing:.06em;background:#fff}
+  .lgrid{display:grid;grid-template-columns:1fr;gap:6px}
+  .litem{display:flex;align-items:baseline;gap:8px;padding:7px 10px;border:1px solid var(--line);
+         border-radius:9px;font-size:.98rem;background:#fff}
+  .litem .cj{font-family:var(--mincho);letter-spacing:.08em}
+  .litem .cy{font-size:.68rem;color:var(--sub);letter-spacing:.04em;margin-left:1px}
+  .litem .ar{color:var(--sub);font-size:.8rem;margin:0 4px}
   .litem.weak{border-color:#f2c9a0;background:#fff8f0}
-  .litem .no{flex:0 0 20px;font-size:.68rem;color:var(--sub);font-family:sans-serif;letter-spacing:0}
-  .litem .ar{color:var(--sub);font-size:.8rem}
-  .litem .badge{margin-left:auto;font-size:.66rem;color:#b9761f;font-family:sans-serif;font-weight:700}
+  .litem .no{flex:0 0 20px;font-size:.68rem;color:var(--sub)}
+  .litem .badge{margin-left:auto;font-size:.66rem;color:#b9761f;font-weight:700}
   .hide{display:none}
   .foot{text-align:center;font-size:.72rem;color:var(--sub);margin-top:22px;line-height:1.8}
   .note{font-size:.76rem;color:var(--sub);margin-top:10px}
   .chkline{display:flex;align-items:center;gap:8px;font-size:.84rem;margin-top:12px;cursor:pointer}
-  .chkline input{width:17px;height:17px;accent-color:var(--accent)}
-  @media(max-width:400px){ .qword{font-size:2.1rem} .lgrid{grid-template-columns:1fr} }
+  .chkline input{width:17px;height:17px;accent-color:var(--accent);flex:0 0 auto}
+  @media(max-width:400px){ .qword{font-size:2.1rem} .litem{font-size:.92rem} }
 </style>
 </head>
 <body>
@@ -152,6 +158,7 @@
       <button data-v="0">全部</button>
     </div>
 
+    <label class="chkline"><input type="checkbox" id="chkYomi" checked>選択肢に読み方（カタカナ）を表示する</label>
     <label class="chkline"><input type="checkbox" id="chkWeakFirst" checked>まちがえた問題を優先して出す</label>
 
     <button class="big" id="btnStart">スタート</button>
@@ -171,6 +178,7 @@
     <div class="qbox">
       <span class="qtag" id="qTag">問1 ①</span>
       <p class="qword" id="qWord">—</p>
+      <p class="qyomi" id="qYomi"></p>
       <p class="qask" id="qAsk">の対義語は？</p>
     </div>
 
@@ -209,55 +217,60 @@
 </div>
 
 <script>
-/* ============ 問題データ（プリントの通り：全問「対義語」） ============ */
+/* ============ 問題データ（プリントの通り：全問「対義語」）
+   w=出題語 / wk=出題語の読み / a=対義語 / k=対義語の読み（プリントのカタカナ） ============ */
 const BANK = [
   // 問1
-  {s:1,n:1, w:'詳細', k:'ガイリャク', a:'概略'},
-  {s:1,n:2, w:'穏健', k:'カゲキ',     a:'過激'},
-  {s:1,n:3, w:'創造', k:'モホウ',     a:'模倣'},
-  {s:1,n:4, w:'優雅', k:'ソヤ',       a:'粗野'},
-  {s:1,n:5, w:'柔弱', k:'キョウコ',   a:'強固'},
-  {s:1,n:6, w:'賢明', k:'アング',     a:'暗愚'},
-  {s:1,n:7, w:'具体', k:'チュウショウ',a:'抽象'},
-  {s:1,n:8, w:'雇用', k:'カイコ',     a:'解雇'},
-  {s:1,n:9, w:'歓喜', k:'ヒアイ',     a:'悲哀'},
-  {s:1,n:10,w:'分裂', k:'トウイツ',   a:'統一'},
-  {s:1,n:11,w:'起床', k:'シュウシン', a:'就寝'},
-  {s:1,n:12,w:'緩慢', k:'ビンソク',   a:'敏速'},
-  {s:1,n:13,w:'遠隔', k:'キンセツ',   a:'近接'},
-  {s:1,n:14,w:'抑制', k:'ソクシン',   a:'促進'},
+  {s:1,n:1, w:'詳細',wk:'ショウサイ',   a:'概略', k:'ガイリャク'},
+  {s:1,n:2, w:'穏健',wk:'オンケン',     a:'過激', k:'カゲキ'},
+  {s:1,n:3, w:'創造',wk:'ソウゾウ',     a:'模倣', k:'モホウ'},
+  {s:1,n:4, w:'優雅',wk:'ユウガ',       a:'粗野', k:'ソヤ'},
+  {s:1,n:5, w:'柔弱',wk:'ニュウジャク', a:'強固', k:'キョウコ'},
+  {s:1,n:6, w:'賢明',wk:'ケンメイ',     a:'暗愚', k:'アング'},
+  {s:1,n:7, w:'具体',wk:'グタイ',       a:'抽象', k:'チュウショウ'},
+  {s:1,n:8, w:'雇用',wk:'コヨウ',       a:'解雇', k:'カイコ'},
+  {s:1,n:9, w:'歓喜',wk:'カンキ',       a:'悲哀', k:'ヒアイ'},
+  {s:1,n:10,w:'分裂',wk:'ブンレツ',     a:'統一', k:'トウイツ'},
+  {s:1,n:11,w:'起床',wk:'キショウ',     a:'就寝', k:'シュウシン'},
+  {s:1,n:12,w:'緩慢',wk:'カンマン',     a:'敏速', k:'ビンソク'},
+  {s:1,n:13,w:'遠隔',wk:'エンカク',     a:'近接', k:'キンセツ'},
+  {s:1,n:14,w:'抑制',wk:'ヨクセイ',     a:'促進', k:'ソクシン'},
   // 問2
-  {s:2,n:1, w:'妨害', k:'キョウリョク',a:'協力'},
-  {s:2,n:2, w:'虐待', k:'アイゴ',     a:'愛護'},
-  {s:2,n:3, w:'添加', k:'サクジョ',   a:'削除'},
-  {s:2,n:4, w:'華美', k:'シッソ',     a:'質素'},
-  {s:2,n:5, w:'冗長', k:'カンケツ',   a:'簡潔'},
-  {s:2,n:6, w:'逮捕', k:'シャクホウ', a:'釈放'},
-  {s:2,n:7, w:'違反', k:'ジュンシュ', a:'遵守'},
-  {s:2,n:8, w:'促進', k:'ヨクセイ',   a:'抑制'},
-  {s:2,n:9, w:'興隆', k:'スイタイ',   a:'衰退'},
-  {s:2,n:10,w:'潤沢', k:'ケツボウ',   a:'欠乏'},
-  {s:2,n:11,w:'倹約', k:'ロウヒ',     a:'浪費'},
-  {s:2,n:12,w:'栄達', k:'レイラク',   a:'零落'},
-  {s:2,n:13,w:'修繕', k:'ハソン',     a:'破損'},
-  {s:2,n:14,w:'精密', k:'ソザツ',     a:'粗雑'},
+  {s:2,n:1, w:'妨害',wk:'ボウガイ',     a:'協力', k:'キョウリョク'},
+  {s:2,n:2, w:'虐待',wk:'ギャクタイ',   a:'愛護', k:'アイゴ'},
+  {s:2,n:3, w:'添加',wk:'テンカ',       a:'削除', k:'サクジョ'},
+  {s:2,n:4, w:'華美',wk:'カビ',         a:'質素', k:'シッソ'},
+  {s:2,n:5, w:'冗長',wk:'ジョウチョウ', a:'簡潔', k:'カンケツ'},
+  {s:2,n:6, w:'逮捕',wk:'タイホ',       a:'釈放', k:'シャクホウ'},
+  {s:2,n:7, w:'違反',wk:'イハン',       a:'遵守', k:'ジュンシュ'},
+  {s:2,n:8, w:'促進',wk:'ソクシン',     a:'抑制', k:'ヨクセイ'},
+  {s:2,n:9, w:'興隆',wk:'コウリュウ',   a:'衰退', k:'スイタイ'},
+  {s:2,n:10,w:'潤沢',wk:'ジュンタク',   a:'欠乏', k:'ケツボウ'},
+  {s:2,n:11,w:'倹約',wk:'ケンヤク',     a:'浪費', k:'ロウヒ'},
+  {s:2,n:12,w:'栄達',wk:'エイタツ',     a:'零落', k:'レイラク'},
+  {s:2,n:13,w:'修繕',wk:'シュウゼン',   a:'破損', k:'ハソン'},
+  {s:2,n:14,w:'精密',wk:'セイミツ',     a:'粗雑', k:'ソザツ'},
   // 問3
-  {s:3,n:1, w:'衰微', k:'ハンエイ',   a:'繁栄'},
-  {s:3,n:2, w:'一般', k:'トクシュ',   a:'特殊'},
-  {s:3,n:3, w:'進展', k:'テイタイ',   a:'停滞'},
-  {s:3,n:4, w:'保守', k:'カクシン',   a:'革新'},
-  {s:3,n:5, w:'邪悪', k:'ゼンリョウ', a:'善良'},
-  {s:3,n:6, w:'概略', k:'ショウサイ', a:'詳細'},
-  {s:3,n:7, w:'長寿', k:'タンメイ',   a:'短命'},
-  {s:3,n:8, w:'承諾', k:'ジタイ',     a:'辞退'},
-  {s:3,n:9, w:'助長', k:'ソガイ',     a:'阻害'},
-  {s:3,n:10,w:'冷遇', k:'ユウグウ',   a:'優遇'},
-  {s:3,n:11,w:'沈下', k:'リュウキ',   a:'隆起'},
-  {s:3,n:12,w:'郊外', k:'トシン',     a:'都心'},
-  {s:3,n:13,w:'浪費', k:'セツヤク',   a:'節約'},
-  {s:3,n:14,w:'卑屈', k:'ソンダイ',   a:'尊大'}
+  {s:3,n:1, w:'衰微',wk:'スイビ',       a:'繁栄', k:'ハンエイ'},
+  {s:3,n:2, w:'一般',wk:'イッパン',     a:'特殊', k:'トクシュ'},
+  {s:3,n:3, w:'進展',wk:'シンテン',     a:'停滞', k:'テイタイ'},
+  {s:3,n:4, w:'保守',wk:'ホシュ',       a:'革新', k:'カクシン'},
+  {s:3,n:5, w:'邪悪',wk:'ジャアク',     a:'善良', k:'ゼンリョウ'},
+  {s:3,n:6, w:'概略',wk:'ガイリャク',   a:'詳細', k:'ショウサイ'},
+  {s:3,n:7, w:'長寿',wk:'チョウジュ',   a:'短命', k:'タンメイ'},
+  {s:3,n:8, w:'承諾',wk:'ショウダク',   a:'辞退', k:'ジタイ'},
+  {s:3,n:9, w:'助長',wk:'ジョチョウ',   a:'阻害', k:'ソガイ'},
+  {s:3,n:10,w:'冷遇',wk:'レイグウ',     a:'優遇', k:'ユウグウ'},
+  {s:3,n:11,w:'沈下',wk:'チンカ',       a:'隆起', k:'リュウキ'},
+  {s:3,n:12,w:'郊外',wk:'コウガイ',     a:'都心', k:'トシン'},
+  {s:3,n:13,w:'浪費',wk:'ロウヒ',       a:'節約', k:'セツヤク'},
+  {s:3,n:14,w:'卑屈',wk:'ヒクツ',       a:'尊大', k:'ソンダイ'}
 ];
 BANK.forEach(q => q.id = q.s + '-' + q.n);
+
+/* 語 → 読み の対応表（選択肢にふりがなを出すため） */
+const YOMI = {};
+BANK.forEach(q => { YOMI[q.w] = q.wk; YOMI[q.a] = q.k; });
 
 /* ============ 保存 ============ */
 const KEY = 'taigigo_v1';
@@ -267,12 +280,17 @@ function rec(id){ if(!ST[id]) ST[id] = {ok:0, ng:0}; return ST[id]; }
 function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
 
 /* ============ 状態 ============ */
-let cfg = { range:0, mode:'fwd', count:10, weakFirst:true };
-let queue = [], idx = 0, score = 0, log = [], answered = false, curChoices = [];
-let lastSource = null;   // 'normal' | 'weak' | 'retry'
+let cfg = { range:0, mode:'fwd', count:10, weakFirst:true, yomi:true };
+let queue = [], idx = 0, score = 0, log = [], answered = false, curQ = null;
+let lastSource = null;
 
 const $ = id => document.getElementById(id);
 const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+/* 漢字＋読みの2段組み。showY=false なら漢字だけ */
+function unit(word, cls, showY){
+  return '<span class="' + cls + '"><span class="cj">' + word + '</span>' +
+         (showY && YOMI[word] ? '<span class="cy">' + YOMI[word] + '</span>' : '') + '</span>';
+}
 
 /* ============ 設定UI ============ */
 function segInit(elId, onPick){
@@ -288,6 +306,7 @@ segInit('segRange', v => cfg.range = +v);
 segInit('segMode',  v => cfg.mode  = v);
 segInit('segCount', v => cfg.count = +v);
 $('chkWeakFirst').addEventListener('change', e => cfg.weakFirst = e.target.checked);
+$('chkYomi').addEventListener('change', e => cfg.yomi = e.target.checked);
 
 /* ============ 出題作成 ============ */
 function pool(){ return cfg.range ? BANK.filter(q => q.s === cfg.range) : BANK.slice(); }
@@ -301,9 +320,8 @@ function buildQueue(src){
   } else {
     list = shuffle(pool());
     if(cfg.weakFirst){
-      // まちがえた回数が多いものを前に寄せる（同点はランダムのまま）
-      list.sort((a,b) => (rec(b.id).ng - rec(b.id).ok) - (rec(a.id).ng - rec(a.id).ok));
-      const head = list.filter(q => rec(q.id).ng - rec(q.id).ok > 0);
+      const head = list.filter(q => rec(q.id).ng - rec(q.id).ok > 0)
+                       .sort((a,b) => (rec(b.id).ng - rec(b.id).ok) - (rec(a.id).ng - rec(a.id).ok));
       const tail = shuffle(list.filter(q => rec(q.id).ng - rec(q.id).ok <= 0));
       list = head.concat(tail);
     }
@@ -321,20 +339,23 @@ function dirOf(){
 function makeQ(item){
   const d = item._dir || dirOf();
   item._dir = null;
-  let qw, ask, correct, isKana = false, poolArr;
+  let qw, qy, ask, correct, isKana = false, poolArr;
   if(d === 'rev'){
-    qw = item.a; correct = item.w; ask = 'の対義語は？';
+    qw = item.a; qy = item.k; correct = item.w; ask = 'の対義語は？';
     poolArr = BANK.map(b => b.w);
   } else if(d === 'kana'){
-    qw = item.k; correct = item.a; ask = 'を漢字に直すと？（' + item.w + ' の対義語）'; isKana = true;
+    qw = item.k; qy = ''; correct = item.a; isKana = true;
+    ask = 'を漢字に直すと？（' + item.w + ' の対義語）';
     poolArr = BANK.map(b => b.a);
   } else {
-    qw = item.w; correct = item.a; ask = 'の対義語は？';
+    qw = item.w; qy = item.wk; correct = item.a; ask = 'の対義語は？';
     poolArr = BANK.map(b => b.a);
   }
   const cand = shuffle([...new Set(poolArr)].filter(x => x !== correct && x !== qw && x !== item.w && x !== item.a));
   const choices = shuffle([correct, ...cand.slice(0,3)]);
-  return {item, dir:d, qw, ask, correct, isKana, choices};
+  // カタカナ→漢字モードは読みを出すと答えがそのまま分かるので隠す
+  const showY = cfg.yomi && d !== 'kana';
+  return {item, dir:d, qw, qy, ask, correct, isKana, choices, showY};
 }
 
 /* ============ 画面 ============ */
@@ -365,19 +386,21 @@ $('btnWeak').onclick  = () => start(buildQueue('weak'), 'weak');
 
 function render(){
   answered = false;
-  const q = makeQ(queue[idx]); curChoices = [q];
+  const q = makeQ(queue[idx]); curQ = q;
   $('barFill').style.width = (idx / queue.length * 100) + '%';
   $('mProg').textContent = (idx+1) + ' / ' + queue.length;
   $('mScore').textContent = '正解 ' + score;
   $('qTag').textContent = '問' + q.item.s + ' ' + '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭'[q.item.n-1];
   $('qWord').textContent = q.qw;
   $('qWord').className = 'qword' + (q.isKana ? ' kana' : '');
+  $('qYomi').textContent = cfg.yomi ? (q.qy || '') : '';
   $('qAsk').textContent = q.ask;
 
   const box = $('choices'); box.innerHTML = '';
   q.choices.forEach((c,i) => {
     const b = document.createElement('button');
-    b.innerHTML = '<span class="num">' + (i+1) + '</span><span>' + c + '</span>';
+    b.dataset.val = c;
+    b.innerHTML = '<span class="num">' + (i+1) + '</span>' + unit(c, 'ctxt', q.showY);
     b.onclick = () => answer(q, c, b);
     box.appendChild(b);
   });
@@ -397,8 +420,9 @@ function answer(q, picked, btn){
 
   [...$('choices').children].forEach(b => {
     b.disabled = true;
-    const t = b.lastChild.textContent;
-    if(t === q.correct) b.classList.add('correct');
+    // 答え合わせのときは、読みを隠していた問題でも読みを表示する
+    if(!q.showY) b.innerHTML = b.children[0].outerHTML + unit(b.dataset.val, 'ctxt', cfg.yomi);
+    if(b.dataset.val === q.correct) b.classList.add('correct');
     else if(b === btn) b.classList.add('wrong');
     else b.classList.add('dim');
   });
@@ -407,7 +431,8 @@ function answer(q, picked, btn){
   j.className = 'judge show ' + (hit ? 'o' : 'x');
   j.innerHTML = (hit ? '◯ 正解！　' : '✕ ざんねん　正解は ')
     + '<b>' + q.item.w + ' ⇔ ' + q.item.a + '</b>'
-    + '<span class="hint">' + q.item.k + '（問' + q.item.s + ' ' + q.item.n + '）'
+    + '<span class="hint">' + q.item.wk + ' ⇔ ' + q.item.k
+    + '　（問' + q.item.s + ' ' + '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭'[q.item.n-1] + '）'
     + (r.ng ? '　／ これまで ✕' + r.ng + '回' : '') + '</span>';
   $('mScore').textContent = '正解 ' + score;
   $('btnNext').classList.remove('hide');
@@ -433,7 +458,7 @@ function finish(){
   const wrongs = log.filter(l => !l.hit);
   $('rList').innerHTML = log.map(l =>
     '<div class="rrow"><span class="mk ' + (l.hit?'o':'x') + '">' + (l.hit?'◯':'✕') + '</span>' +
-    '<span class="w">' + l.item.w + '</span><span class="ar">⇔</span><span class="w">' + l.item.a + '</span>' +
+    '<span class="pair">' + unit(l.item.w,'u',true) + '<span class="ar">⇔</span>' + unit(l.item.a,'u',true) + '</span>' +
     (rec(l.item.id).ng ? '<span class="ng-count">✕' + rec(l.item.id).ng + '</span>' : '') + '</div>'
   ).join('');
   $('btnRetryWrong').disabled = wrongs.length === 0;
@@ -458,8 +483,10 @@ $('btnList').onclick = () => {
     BANK.filter(q => q.s === s).forEach(q => {
       const r = rec(q.id);
       html += '<div class="litem' + (r.ng > 0 ? ' weak' : '') + '">' +
-              '<span class="no">' + q.n + '</span>' + q.w +
-              '<span class="ar">⇔</span>' + q.a +
+              '<span class="no">' + q.n + '</span>' +
+              '<span><span class="cj">' + q.w + '</span><span class="cy">（' + q.wk + '）</span>' +
+              '<span class="ar">⇔</span>' +
+              '<span class="cj">' + q.a + '</span><span class="cy">（' + q.k + '）</span></span>' +
               (r.ng ? '<span class="badge">✕' + r.ng + '</span>' : '') + '</div>';
     });
     html += '</div>';
