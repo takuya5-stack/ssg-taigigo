@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex,nofollow">
+<meta name="description" content="国語科B 第2学年「類義語・対義語・多義語」演習問題の対義語42語を4択で練習できます。">
+<meta name="theme-color" content="#3b5bdb">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="対義語マスター">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='12' fill='%233b5bdb'/><text x='32' y='44' font-size='34' text-anchor='middle' fill='white' font-family='sans-serif'>対</text></svg>">
+<title>対義語マスター｜国語科B 第2学年</title>
+<style>
+  :root{
+    --bg:#f4f6fb; --card:#ffffff; --ink:#1d2333; --sub:#6b7488;
+    --line:#e3e7f0; --accent:#3b5bdb; --accent-soft:#edf1ff;
+    --ok:#1f9d55; --ok-soft:#e6f7ee; --ng:#d92d4b; --ng-soft:#fdecef;
+    --warn:#e8a33d; --shadow:0 2px 14px rgba(29,35,51,.07);
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{
+    margin:0;padding:0;background:var(--bg);color:var(--ink);
+    font-family:"Hiragino Sans","Hiragino Kaku Gothic ProN","Yu Gothic",Meiryo,sans-serif;
+    line-height:1.7;
+  }
+  .wrap{max-width:660px;margin:0 auto;padding:16px 14px 60px}
+  header{text-align:center;margin:10px 0 18px}
+  header h1{font-size:1.35rem;margin:0 0 4px;letter-spacing:.04em}
+  header p{margin:0;font-size:.8rem;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;
+        box-shadow:var(--shadow);padding:18px 16px;margin-bottom:14px}
+  h2{font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:8px}
+  h2::before{content:"";width:4px;height:17px;background:var(--accent);border-radius:2px}
+  .label{font-size:.78rem;color:var(--sub);margin:14px 0 6px;font-weight:700}
+  .label:first-of-type{margin-top:0}
+  .seg{display:flex;flex-wrap:wrap;gap:7px}
+  .seg button{
+    flex:1 1 auto;min-width:72px;padding:9px 10px;border:1px solid var(--line);
+    background:#fff;border-radius:9px;font-size:.85rem;cursor:pointer;color:var(--ink);
+    font-family:inherit;transition:.12s;
+  }
+  .seg button:hover{border-color:#b9c4e6}
+  .seg button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:700}
+  .seg button:disabled{opacity:.38;cursor:not-allowed}
+  .big{
+    display:block;width:100%;padding:15px;margin-top:18px;border:none;border-radius:11px;
+    background:var(--accent);color:#fff;font-size:1.02rem;font-weight:700;cursor:pointer;
+    font-family:inherit;letter-spacing:.06em;
+  }
+  .big:hover{filter:brightness(1.07)}
+  .big.sub{background:#fff;color:var(--accent);border:1.5px solid var(--accent);margin-top:9px}
+  .big.ghost{background:#fff;color:var(--sub);border:1px solid var(--line);margin-top:9px;font-weight:600}
+  .big:disabled{background:#c3c9d8;cursor:not-allowed}
+
+  /* ---- quiz ---- */
+  .bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-bottom:6px}
+  .bar > i{display:block;height:100%;background:var(--accent);transition:width .25s}
+  .meta{display:flex;justify-content:space-between;font-size:.78rem;color:var(--sub);margin-bottom:14px}
+  .qbox{text-align:center;padding:14px 8px 4px}
+  .qtag{display:inline-block;font-size:.72rem;color:var(--accent);background:var(--accent-soft);
+        padding:3px 10px;border-radius:99px;margin-bottom:12px}
+  .qword{font-size:2.5rem;font-weight:700;letter-spacing:.18em;margin:0;
+         font-family:"Hiragino Mincho ProN","Yu Mincho",serif}
+  .qword.kana{font-size:2rem;letter-spacing:.14em;font-family:inherit}
+  .qask{font-size:.88rem;color:var(--sub);margin:8px 0 2px}
+  .choices{display:grid;gap:9px;margin-top:18px}
+  .choices button{
+    display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;
+    border:1.5px solid var(--line);background:#fff;border-radius:11px;cursor:pointer;
+    font-size:1.25rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+    letter-spacing:.12em;text-align:left;color:var(--ink);transition:.12s;
+  }
+  .choices button:hover:not(:disabled){border-color:var(--accent);background:var(--accent-soft)}
+  .choices button .num{
+    flex:0 0 22px;height:22px;border-radius:5px;background:var(--line);color:var(--sub);
+    font-size:.72rem;font-family:sans-serif;display:flex;align-items:center;justify-content:center;
+    letter-spacing:0;
+  }
+  .choices button:disabled{cursor:default}
+  .choices button.correct{border-color:var(--ok);background:var(--ok-soft)}
+  .choices button.wrong{border-color:var(--ng);background:var(--ng-soft)}
+  .choices button.dim{opacity:.45}
+  .judge{margin-top:16px;padding:13px 14px;border-radius:11px;font-size:.9rem;display:none}
+  .judge.show{display:block}
+  .judge.o{background:var(--ok-soft);color:#14663a}
+  .judge.x{background:var(--ng-soft);color:#9c1730}
+  .judge b{font-size:1.15rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;letter-spacing:.1em}
+  .judge .hint{display:block;font-size:.78rem;opacity:.85;margin-top:3px}
+
+  /* ---- result ---- */
+  .score{text-align:center;padding:6px 0 10px}
+  .score .n{font-size:3rem;font-weight:700;line-height:1.1}
+  .score .n small{font-size:1.1rem;color:var(--sub);font-weight:400}
+  .score .msg{font-size:.9rem;color:var(--sub)}
+  .rlist{margin-top:6px;border-top:1px solid var(--line)}
+  .rrow{display:flex;align-items:center;gap:10px;padding:9px 2px;border-bottom:1px solid var(--line);font-size:.95rem}
+  .rrow .mk{flex:0 0 22px;text-align:center;font-weight:700}
+  .rrow .mk.o{color:var(--ok)} .rrow .mk.x{color:var(--ng)}
+  .rrow .w{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;letter-spacing:.08em}
+  .rrow .ar{color:var(--sub);font-size:.8rem}
+  .rrow .ng-count{margin-left:auto;font-size:.72rem;color:var(--warn);font-weight:700}
+
+  /* ---- list ---- */
+  .lgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .litem{display:flex;align-items:center;gap:7px;padding:8px 9px;border:1px solid var(--line);
+         border-radius:9px;font-size:.95rem;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;
+         letter-spacing:.06em;background:#fff}
+  .litem.weak{border-color:#f2c9a0;background:#fff8f0}
+  .litem .no{flex:0 0 20px;font-size:.68rem;color:var(--sub);font-family:sans-serif;letter-spacing:0}
+  .litem .ar{color:var(--sub);font-size:.8rem}
+  .litem .badge{margin-left:auto;font-size:.66rem;color:#b9761f;font-family:sans-serif;font-weight:700}
+  .hide{display:none}
+  .foot{text-align:center;font-size:.72rem;color:var(--sub);margin-top:22px;line-height:1.8}
+  .note{font-size:.76rem;color:var(--sub);margin-top:10px}
+  .chkline{display:flex;align-items:center;gap:8px;font-size:.84rem;margin-top:12px;cursor:pointer}
+  .chkline input{width:17px;height:17px;accent-color:var(--accent)}
+  @media(max-width:400px){ .qword{font-size:2.1rem} .lgrid{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <h1>対義語マスター</h1>
+    <p>国語科B 第2学年「類義語・対義語・多義語」演習問題 ／ 全42語</p>
+  </header>
+
+  <!-- ========== HOME ========== -->
+  <section id="home" class="card">
+    <h2>出題設定</h2>
+
+    <div class="label">出題範囲</div>
+    <div class="seg" id="segRange">
+      <button data-v="0" class="on">全部（42語）</button>
+      <button data-v="1">問1</button>
+      <button data-v="2">問2</button>
+      <button data-v="3">問3</button>
+    </div>
+
+    <div class="label">出題形式</div>
+    <div class="seg" id="segMode">
+      <button data-v="fwd" class="on">熟語 → 対義語</button>
+      <button data-v="rev">対義語 → 熟語</button>
+      <button data-v="kana">カタカナ → 漢字</button>
+      <button data-v="mix">ミックス</button>
+    </div>
+
+    <div class="label">1回の問題数</div>
+    <div class="seg" id="segCount">
+      <button data-v="10" class="on">10問</button>
+      <button data-v="20">20問</button>
+      <button data-v="0">全部</button>
+    </div>
+
+    <label class="chkline"><input type="checkbox" id="chkWeakFirst" checked>まちがえた問題を優先して出す</label>
+
+    <button class="big" id="btnStart">スタート</button>
+    <button class="big sub" id="btnWeak">苦手だけ特訓（<span id="weakN">0</span>問）</button>
+    <button class="big ghost" id="btnList">42語を一覧で確認</button>
+    <p class="note" id="statLine"></p>
+  </section>
+
+  <!-- ========== QUIZ ========== -->
+  <section id="quiz" class="card hide">
+    <div class="bar"><i id="barFill" style="width:0%"></i></div>
+    <div class="meta">
+      <span id="mProg">1 / 10</span>
+      <span id="mScore">正解 0</span>
+    </div>
+
+    <div class="qbox">
+      <span class="qtag" id="qTag">問1 ①</span>
+      <p class="qword" id="qWord">—</p>
+      <p class="qask" id="qAsk">の対義語は？</p>
+    </div>
+
+    <div class="choices" id="choices"></div>
+
+    <div class="judge" id="judge"></div>
+    <button class="big hide" id="btnNext">次へ →</button>
+    <button class="big ghost" id="btnQuit">やめる</button>
+  </section>
+
+  <!-- ========== RESULT ========== -->
+  <section id="result" class="card hide">
+    <h2>結果</h2>
+    <div class="score">
+      <div class="n" id="rScore">0<small> / 10</small></div>
+      <div class="msg" id="rMsg"></div>
+    </div>
+    <div class="rlist" id="rList"></div>
+    <button class="big" id="btnRetryWrong">まちがえた問題だけ もう一度</button>
+    <button class="big sub" id="btnAgain">同じ設定でもう1セット</button>
+    <button class="big ghost" id="btnHome">設定にもどる</button>
+  </section>
+
+  <!-- ========== LIST ========== -->
+  <section id="list" class="card hide">
+    <h2>対義語 一覧</h2>
+    <div id="listBody"></div>
+    <button class="big ghost" id="btnListBack">もどる</button>
+  </section>
+
+  <p class="foot">
+    キーボード：<b>1〜4</b>で解答／<b>Enter</b>で次へ<br>
+    成績はこの端末に自動保存されます
+  </p>
+  <button class="big ghost" id="btnReset" style="max-width:220px;margin:0 auto">成績をリセット</button>
+</div>
+
+<script>
+/* ============ 問題データ（プリントの通り：全問「対義語」） ============ */
+const BANK = [
+  // 問1
+  {s:1,n:1, w:'詳細', k:'ガイリャク', a:'概略'},
+  {s:1,n:2, w:'穏健', k:'カゲキ',     a:'過激'},
+  {s:1,n:3, w:'創造', k:'モホウ',     a:'模倣'},
+  {s:1,n:4, w:'優雅', k:'ソヤ',       a:'粗野'},
+  {s:1,n:5, w:'柔弱', k:'キョウコ',   a:'強固'},
+  {s:1,n:6, w:'賢明', k:'アング',     a:'暗愚'},
+  {s:1,n:7, w:'具体', k:'チュウショウ',a:'抽象'},
+  {s:1,n:8, w:'雇用', k:'カイコ',     a:'解雇'},
+  {s:1,n:9, w:'歓喜', k:'ヒアイ',     a:'悲哀'},
+  {s:1,n:10,w:'分裂', k:'トウイツ',   a:'統一'},
+  {s:1,n:11,w:'起床', k:'シュウシン', a:'就寝'},
+  {s:1,n:12,w:'緩慢', k:'ビンソク',   a:'敏速'},
+  {s:1,n:13,w:'遠隔', k:'キンセツ',   a:'近接'},
+  {s:1,n:14,w:'抑制', k:'ソクシン',   a:'促進'},
+  // 問2
+  {s:2,n:1, w:'妨害', k:'キョウリョク',a:'協力'},
+  {s:2,n:2, w:'虐待', k:'アイゴ',     a:'愛護'},
+  {s:2,n:3, w:'添加', k:'サクジョ',   a:'削除'},
+  {s:2,n:4, w:'華美', k:'シッソ',     a:'質素'},
+  {s:2,n:5, w:'冗長', k:'カンケツ',   a:'簡潔'},
+  {s:2,n:6, w:'逮捕', k:'シャクホウ', a:'釈放'},
+  {s:2,n:7, w:'違反', k:'ジュンシュ', a:'遵守'},
+  {s:2,n:8, w:'促進', k:'ヨクセイ',   a:'抑制'},
+  {s:2,n:9, w:'興隆', k:'スイタイ',   a:'衰退'},
+  {s:2,n:10,w:'潤沢', k:'ケツボウ',   a:'欠乏'},
+  {s:2,n:11,w:'倹約', k:'ロウヒ',     a:'浪費'},
+  {s:2,n:12,w:'栄達', k:'レイラク',   a:'零落'},
+  {s:2,n:13,w:'修繕', k:'ハソン',     a:'破損'},
+  {s:2,n:14,w:'精密', k:'ソザツ',     a:'粗雑'},
+  // 問3
+  {s:3,n:1, w:'衰微', k:'ハンエイ',   a:'繁栄'},
+  {s:3,n:2, w:'一般', k:'トクシュ',   a:'特殊'},
+  {s:3,n:3, w:'進展', k:'テイタイ',   a:'停滞'},
+  {s:3,n:4, w:'保守', k:'カクシン',   a:'革新'},
+  {s:3,n:5, w:'邪悪', k:'ゼンリョウ', a:'善良'},
+  {s:3,n:6, w:'概略', k:'ショウサイ', a:'詳細'},
+  {s:3,n:7, w:'長寿', k:'タンメイ',   a:'短命'},
+  {s:3,n:8, w:'承諾', k:'ジタイ',     a:'辞退'},
+  {s:3,n:9, w:'助長', k:'ソガイ',     a:'阻害'},
+  {s:3,n:10,w:'冷遇', k:'ユウグウ',   a:'優遇'},
+  {s:3,n:11,w:'沈下', k:'リュウキ',   a:'隆起'},
+  {s:3,n:12,w:'郊外', k:'トシン',     a:'都心'},
+  {s:3,n:13,w:'浪費', k:'セツヤク',   a:'節約'},
+  {s:3,n:14,w:'卑屈', k:'ソンダイ',   a:'尊大'}
+];
+BANK.forEach(q => q.id = q.s + '-' + q.n);
+
+/* ============ 保存 ============ */
+const KEY = 'taigigo_v1';
+let ST = {};
+try { ST = JSON.parse(localStorage.getItem(KEY) || '{}') || {}; } catch(e){ ST = {}; }
+function rec(id){ if(!ST[id]) ST[id] = {ok:0, ng:0}; return ST[id]; }
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify(ST)); }catch(e){} }
+
+/* ============ 状態 ============ */
+let cfg = { range:0, mode:'fwd', count:10, weakFirst:true };
+let queue = [], idx = 0, score = 0, log = [], answered = false, curChoices = [];
+let lastSource = null;   // 'normal' | 'weak' | 'retry'
+
+const $ = id => document.getElementById(id);
+const shuffle = a => { for(let i=a.length-1;i>0;i--){const j=(Math.random()*(i+1))|0;[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+/* ============ 設定UI ============ */
+function segInit(elId, onPick){
+  const box = $(elId);
+  box.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    [...box.children].forEach(c => c.classList.remove('on'));
+    b.classList.add('on');
+    onPick(b.dataset.v);
+  });
+}
+segInit('segRange', v => cfg.range = +v);
+segInit('segMode',  v => cfg.mode  = v);
+segInit('segCount', v => cfg.count = +v);
+$('chkWeakFirst').addEventListener('change', e => cfg.weakFirst = e.target.checked);
+
+/* ============ 出題作成 ============ */
+function pool(){ return cfg.range ? BANK.filter(q => q.s === cfg.range) : BANK.slice(); }
+
+function buildQueue(src){
+  let list;
+  if(src === 'weak'){
+    list = BANK.filter(q => rec(q.id).ng > 0)
+               .sort((a,b) => (ST[b.id].ng - ST[b.id].ok) - (ST[a.id].ng - ST[a.id].ok));
+    if(cfg.count) list = list.slice(0, cfg.count);
+  } else {
+    list = shuffle(pool());
+    if(cfg.weakFirst){
+      // まちがえた回数が多いものを前に寄せる（同点はランダムのまま）
+      list.sort((a,b) => (rec(b.id).ng - rec(b.id).ok) - (rec(a.id).ng - rec(a.id).ok));
+      const head = list.filter(q => rec(q.id).ng - rec(q.id).ok > 0);
+      const tail = shuffle(list.filter(q => rec(q.id).ng - rec(q.id).ok <= 0));
+      list = head.concat(tail);
+    }
+    if(cfg.count) list = list.slice(0, cfg.count);
+    list = shuffle(list);
+  }
+  return list;
+}
+
+function dirOf(){
+  if(cfg.mode !== 'mix') return cfg.mode;
+  return ['fwd','rev','kana'][(Math.random()*3)|0];
+}
+
+function makeQ(item){
+  const d = item._dir || dirOf();
+  item._dir = null;
+  let qw, ask, correct, isKana = false, poolArr;
+  if(d === 'rev'){
+    qw = item.a; correct = item.w; ask = 'の対義語は？';
+    poolArr = BANK.map(b => b.w);
+  } else if(d === 'kana'){
+    qw = item.k; correct = item.a; ask = 'を漢字に直すと？（' + item.w + ' の対義語）'; isKana = true;
+    poolArr = BANK.map(b => b.a);
+  } else {
+    qw = item.w; correct = item.a; ask = 'の対義語は？';
+    poolArr = BANK.map(b => b.a);
+  }
+  const cand = shuffle([...new Set(poolArr)].filter(x => x !== correct && x !== qw && x !== item.w && x !== item.a));
+  const choices = shuffle([correct, ...cand.slice(0,3)]);
+  return {item, dir:d, qw, ask, correct, isKana, choices};
+}
+
+/* ============ 画面 ============ */
+function show(which){
+  ['home','quiz','result','list'].forEach(s => $(s).classList.toggle('hide', s !== which));
+  window.scrollTo(0,0);
+}
+
+function refreshHome(){
+  const weak = BANK.filter(q => rec(q.id).ng > 0);
+  $('weakN').textContent = weak.length;
+  $('btnWeak').disabled = weak.length === 0;
+  let ok = 0, ng = 0;
+  Object.values(ST).forEach(v => { ok += v.ok||0; ng += v.ng||0; });
+  const t = ok + ng;
+  $('statLine').textContent = t ? ('これまで ' + t + ' 問 ／ 正答率 ' + Math.round(ok/t*100) + '％') : '';
+}
+
+/* ============ 開始 ============ */
+function start(list, src){
+  if(!list.length) return;
+  lastSource = src;
+  queue = list; idx = 0; score = 0; log = [];
+  show('quiz'); render();
+}
+$('btnStart').onclick = () => start(buildQueue('normal'), 'normal');
+$('btnWeak').onclick  = () => start(buildQueue('weak'), 'weak');
+
+function render(){
+  answered = false;
+  const q = makeQ(queue[idx]); curChoices = [q];
+  $('barFill').style.width = (idx / queue.length * 100) + '%';
+  $('mProg').textContent = (idx+1) + ' / ' + queue.length;
+  $('mScore').textContent = '正解 ' + score;
+  $('qTag').textContent = '問' + q.item.s + ' ' + '①②③④⑤⑥⑦⑧⑨⑩⑪⑫⑬⑭'[q.item.n-1];
+  $('qWord').textContent = q.qw;
+  $('qWord').className = 'qword' + (q.isKana ? ' kana' : '');
+  $('qAsk').textContent = q.ask;
+
+  const box = $('choices'); box.innerHTML = '';
+  q.choices.forEach((c,i) => {
+    const b = document.createElement('button');
+    b.innerHTML = '<span class="num">' + (i+1) + '</span><span>' + c + '</span>';
+    b.onclick = () => answer(q, c, b);
+    box.appendChild(b);
+  });
+  $('judge').className = 'judge';
+  $('judge').innerHTML = '';
+  $('btnNext').classList.add('hide');
+}
+
+function answer(q, picked, btn){
+  if(answered) return; answered = true;
+  const hit = picked === q.correct;
+  const r = rec(q.item.id);
+  if(hit) r.ok++; else r.ng++;
+  save();
+  if(hit) score++;
+  log.push({item:q.item, hit, picked, correct:q.correct, dir:q.dir});
+
+  [...$('choices').children].forEach(b => {
+    b.disabled = true;
+    const t = b.lastChild.textContent;
+    if(t === q.correct) b.classList.add('correct');
+    else if(b === btn) b.classList.add('wrong');
+    else b.classList.add('dim');
+  });
+
+  const j = $('judge');
+  j.className = 'judge show ' + (hit ? 'o' : 'x');
+  j.innerHTML = (hit ? '◯ 正解！　' : '✕ ざんねん　正解は ')
+    + '<b>' + q.item.w + ' ⇔ ' + q.item.a + '</b>'
+    + '<span class="hint">' + q.item.k + '（問' + q.item.s + ' ' + q.item.n + '）'
+    + (r.ng ? '　／ これまで ✕' + r.ng + '回' : '') + '</span>';
+  $('mScore').textContent = '正解 ' + score;
+  $('btnNext').classList.remove('hide');
+  $('btnNext').textContent = (idx + 1 >= queue.length) ? '結果を見る →' : '次へ →';
+}
+
+$('btnNext').onclick = () => {
+  idx++;
+  if(idx >= queue.length) finish(); else render();
+};
+$('btnQuit').onclick = () => { refreshHome(); show('home'); };
+
+/* ============ 結果 ============ */
+function finish(){
+  $('barFill').style.width = '100%';
+  const n = queue.length;
+  $('rScore').innerHTML = score + '<small> / ' + n + '</small>';
+  const p = score / n;
+  $('rMsg').textContent = p === 1 ? '全問正解！完璧です' :
+                          p >= .8 ? 'よくできました。あと少し！' :
+                          p >= .5 ? 'まちがえた語をもう一度やろう' :
+                                    'まずは ✕ の語だけ覚えよう';
+  const wrongs = log.filter(l => !l.hit);
+  $('rList').innerHTML = log.map(l =>
+    '<div class="rrow"><span class="mk ' + (l.hit?'o':'x') + '">' + (l.hit?'◯':'✕') + '</span>' +
+    '<span class="w">' + l.item.w + '</span><span class="ar">⇔</span><span class="w">' + l.item.a + '</span>' +
+    (rec(l.item.id).ng ? '<span class="ng-count">✕' + rec(l.item.id).ng + '</span>' : '') + '</div>'
+  ).join('');
+  $('btnRetryWrong').disabled = wrongs.length === 0;
+  $('btnRetryWrong').textContent = wrongs.length
+      ? 'まちがえた ' + wrongs.length + ' 問だけ もう一度'
+      : 'まちがいなし！';
+  refreshHome();
+  show('result');
+}
+$('btnRetryWrong').onclick = () => {
+  const ws = log.filter(l => !l.hit).map(l => { l.item._dir = l.dir; return l.item; });
+  start(shuffle(ws), 'retry');
+};
+$('btnAgain').onclick = () => start(buildQueue(lastSource === 'weak' ? 'weak' : 'normal'), lastSource === 'weak' ? 'weak' : 'normal');
+$('btnHome').onclick = () => { refreshHome(); show('home'); };
+
+/* ============ 一覧 ============ */
+$('btnList').onclick = () => {
+  let html = '';
+  [1,2,3].forEach(s => {
+    html += '<div class="label">問' + s + '</div><div class="lgrid">';
+    BANK.filter(q => q.s === s).forEach(q => {
+      const r = rec(q.id);
+      html += '<div class="litem' + (r.ng > 0 ? ' weak' : '') + '">' +
+              '<span class="no">' + q.n + '</span>' + q.w +
+              '<span class="ar">⇔</span>' + q.a +
+              (r.ng ? '<span class="badge">✕' + r.ng + '</span>' : '') + '</div>';
+    });
+    html += '</div>';
+  });
+  $('listBody').innerHTML = html;
+  show('list');
+};
+$('btnListBack').onclick = () => { refreshHome(); show('home'); };
+
+/* ============ リセット ============ */
+$('btnReset').onclick = () => {
+  if(confirm('これまでの成績・苦手記録をすべて消します。よろしいですか？')){
+    ST = {}; save(); refreshHome(); alert('リセットしました');
+  }
+};
+
+/* ============ キーボード ============ */
+document.addEventListener('keydown', e => {
+  if($('quiz').classList.contains('hide')) return;
+  if(!answered && ['1','2','3','4'].includes(e.key)){
+    const b = $('choices').children[+e.key - 1]; if(b) b.click();
+  } else if(answered && (e.key === 'Enter' || e.key === ' ')){
+    e.preventDefault(); $('btnNext').click();
+  }
+});
+
+refreshHome();
+</script>
+</body>
+</html>
